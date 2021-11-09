@@ -24,7 +24,7 @@ const FileUploader = () => {
 
   return (
     <>
-      <input type={"file"} onChange={fileHandler} />;
+      <input type={"file"} onChange={fileHandler} accept={".zip"} />;
       <button onClick={downloadHandler}>다운로드</button>
     </>
   );
