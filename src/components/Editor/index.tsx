@@ -53,7 +53,9 @@ const Editor = () => {
 
   const handleSave = () => {
     const value = editorInstance?.getModel()?.getValue();
+    // console.log(curDir, value);
     zip.file(curDir, value as string);
+    // console.log(zip.files);
   };
 
   const handleClickTab = (e: MouseEvent<HTMLButtonElement>) => {
