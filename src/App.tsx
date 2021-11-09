@@ -41,8 +41,6 @@ export default App;
 
 /*
  todo:
-    탭 구현
-    undo, redo
     스타일드컴포넌트로 스타일 정리
 
     zip 안에 Zip이 있는 경우 재귀적으로 jsZip인스턴스화
