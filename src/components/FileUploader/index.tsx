@@ -1,38 +1,18 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import JSZip from "jszip";
+import { ChangeEvent } from "react";
 import { TreeType } from "../../types/TreeType";
+import useJSZip from "../../hooks/useJSZip";
+import useTree from "../../hooks/useTree";
 
-const FileUploader = ({
-  setTree,
-  setZipData,
-  fileDir,
-}: {
-  setTree: Dispatch<SetStateAction<TreeType>>;
-  setZipData: any;
-  fileDir: string;
-}) => {
-  const [data, setData] = useState<Record<string, JSZip.JSZipObject>>();
-  useEffect(() => {
-    if (!!data && !!fileDir) {
-      data[fileDir].async("text").then((data) => {
-        setZipData(data);
-      });
-    }
-  }, [fileDir, data, setZipData]);
+const FileUploader = () => {
+  const zip = useJSZip();
+  const { setTree } = useTree();
 
   const fileHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
-      const zip = new JSZip();
       zip.loadAsync(e.target.files[0]).then((data) => {
-        setData(data.files);
         setTree(makeTreeArr(data.files));
       });
+      console.log(zip);
     }
   };
 

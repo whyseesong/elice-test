@@ -1,16 +1,11 @@
-import { TreeType } from "../../types/TreeType";
 import Tree from "./Tree";
+import useTree from "../../hooks/useTree";
 
-const FileTree = ({
-  tree,
-  fileSelector,
-}: {
-  tree: TreeType;
-  fileSelector: any;
-}) => {
+const FileTree = () => {
+  const { tree, setDir } = useTree();
   const clickHandler = (e: any) => {
     if (e.target.id === "file") {
-      fileSelector(e.target.dataset.dir);
+      setDir(e.target.dataset.dir);
     }
   };
 
