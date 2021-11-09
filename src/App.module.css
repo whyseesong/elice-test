@@ -1,0 +1,13 @@
+.Flex {
+    display: flex;
+}
+
+.Center {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Padding {
+    padding: 1rem;
+}
