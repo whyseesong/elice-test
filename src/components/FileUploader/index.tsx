@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import { TreeType } from "../../types/TreeType";
 import useJSZip from "../../hooks/useJSZip";
 import useTree from "../../hooks/useTree";
+import { saveAs } from "file-saver";
 
 const FileUploader = () => {
   const zip = useJSZip();
@@ -12,11 +13,21 @@ const FileUploader = () => {
       zip.loadAsync(e.target.files[0]).then((data) => {
         setTree(makeTreeArr(data.files));
       });
-      console.log(zip);
     }
   };
 
-  return <input type={"file"} onChange={fileHandler} />;
+  const downloadHandler = () => {
+    zip.generateAsync({ type: "blob" }).then((blob) => {
+      saveAs(blob);
+    });
+  };
+
+  return (
+    <>
+      <input type={"file"} onChange={fileHandler} />;
+      <button onClick={downloadHandler}>다운로드</button>
+    </>
+  );
 };
 
 export default FileUploader;
