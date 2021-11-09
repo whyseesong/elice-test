@@ -3,6 +3,7 @@ import { TreeType } from "../../types/TreeType";
 import useJSZip from "../../hooks/useJSZip";
 import useTree from "../../hooks/useTree";
 import { saveAs } from "file-saver";
+import { JSZipObject } from "jszip";
 
 const FileUploader = () => {
   const zip = useJSZip();
@@ -24,7 +25,7 @@ const FileUploader = () => {
 
   return (
     <>
-      <input type={"file"} onChange={fileHandler} accept={".zip"} />;
+      <input type={"file"} onChange={fileHandler} accept={".zip"} />
       <button onClick={downloadHandler}>다운로드</button>
     </>
   );
@@ -32,8 +33,8 @@ const FileUploader = () => {
 
 export default FileUploader;
 
-function makeTreeArr(files: any): TreeType {
-  const tree: any[] = [];
+function makeTreeArr(files: Record<string, JSZipObject>): TreeType {
+  const tree: TreeType = [];
   for (const dir of Object.keys(files)) {
     const directoryArr: string[] = dir.split("/");
     const type =
@@ -49,7 +50,7 @@ function makeTreeArr(files: any): TreeType {
         pointer.push({ type, name, dir, childNode: [] });
         idx = pointer.length - 1;
       }
-      pointer = pointer[idx].childNode;
+      pointer = pointer[idx].childNode as TreeType;
     }
 
     if (type === "file") {
