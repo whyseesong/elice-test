@@ -52,10 +52,9 @@ const Editor = () => {
   }, [zip, editorInstance, curDir]);
 
   const handleSave = () => {
-    const value = editorInstance?.getModel()?.getValue();
-    // console.log(curDir, value);
-    zip.file(curDir, value as string);
-    // console.log(zip.files);
+    for (const tab of tabs) {
+      zip.file(tab.name, tab.model.getValue());
+    }
   };
 
   const handleClickTab = (e: MouseEvent<HTMLButtonElement>) => {
