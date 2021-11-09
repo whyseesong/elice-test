@@ -36,12 +36,17 @@ const Editor = () => {
         });
       } else {
         if (!!editorInstance) {
-          file.async("text").then((data) => {
-            const model = editor.createModel(data);
-            editorInstance.setModel(model);
-            const name = zip.files[curDir].name;
-            setTabs((prev) => [...prev, { name, model }]);
-          });
+          const tab = tabs.find((tab) => tab.name === curDir);
+          if (!!tab) {
+            editorInstance.setModel(tab.model);
+          } else {
+            file.async("text").then((data) => {
+              const model = editor.createModel(data);
+              editorInstance.setModel(model);
+              const name = zip.files[curDir].name;
+              setTabs((prev) => [...prev, { name, model }]);
+            });
+          }
         }
       }
     }
